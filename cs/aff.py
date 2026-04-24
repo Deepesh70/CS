@@ -1,12 +1,9 @@
-# Affine Cipher: E(x) = (a*x + b) % 26
-# Decryption: D(x) = a_inv * (x - b) % 26
 
 def gcd(a, b):
     while b:
         a, b = b, a % b
     return a
 
-# Find modular inverse of a under mod 26
 def mod_inverse(a, m=26):
     for x in range(1, m):
         if (a * x) % m == 1:
@@ -39,7 +36,6 @@ def decrypt(cipher, a, b):
             result += ch
     return result
 
-# Menu-driven program
 while True:
     print("\n--- Affine Cipher ---")
     print("1. Encrypt")
