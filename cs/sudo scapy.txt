@@ -21,13 +21,17 @@ send(IP(src="192.16.1.2", dst="10.1.2.3")/
 Reply seq = received ack; reply ack = received seq + payload length (100).
 
 Task 3 — ICMP with custom TTL + TCP port scan 1–1024
+
 send(IP(dst="172.16.2.231", ttl=245)/ICMP())
 sr(IP(dst="10.0.0.2")/TCP(dport=(1,1024), flags="S"))
+
 Task 4 — SYN scan on specific ports with spoofed source
+
 sr(IP(src="5.6.7.8", dst="1.2.3.4")/
    TCP(dport=[22,80,21,443], flags="S"))
 Task 5 — TCP packet with shell payload
 send(IP(dst="147.125.1.15")/TCP()/"#!/bin/bash")
+     
 Task 6 — ICMP echo-reply with TTL=128
 send(IP(src="10.1.1.100", dst="10.1.1.101", ttl=128)/
      ICMP(type=0))
