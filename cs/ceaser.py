@@ -1,27 +1,23 @@
 import os
 from collections import Counter
 
-# -------- ENCRYPTION --------
 def encrypt(text, key):
     key = key % 256
     return ''.join(chr((ord(c) + key) % 256) for c in text)
 
 
-# -------- DECRYPTION --------
 def decrypt(cipher, key):
     key = key % 256
     return ''.join(chr((ord(c) - key) % 256) for c in cipher)
 
 
-# -------- BRUTE FORCE --------
 def brute_force(cipher):
     print("\nTrying all possible keys...\n")
     for key in range(256):
         text = decrypt(cipher, key)
-        print(f"Key {key}: {text[:50]}")  # show first 50 chars
+        print(f"Key {key}: {text[:50]}")  
 
 
-# -------- FREQUENCY ANALYSIS --------
 def frequency_analysis(cipher):
     freq = Counter(cipher)
     print("\nCharacter Frequencies:\n")
@@ -29,7 +25,6 @@ def frequency_analysis(cipher):
         print(f"{repr(char)} : {count}")
 
 
-# -------- FILE HANDLING --------
 def read_file(filename):
     if not os.path.exists(filename):
         print("File not found!")
@@ -43,10 +38,8 @@ def write_file(filename, data):
         f.write(data)
 
 
-# -------- MENU --------
 def main():
     while True:
-        print("\n===== Caesar Cipher Menu =====")
         print("1. Encryption")
         print("2. Decryption")
         print("3. Brute Force Attack")

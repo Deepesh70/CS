@@ -1,10 +1,8 @@
 import math
 
-# Remove spaces from key
 def process_key(key):
     return key.replace(" ", "")
 
-# Generate column order
 def get_key_order(key):
     order = []
     for i in range(len(key)):
@@ -18,7 +16,6 @@ def get_key_order(key):
     return order
 
 
-# ---------------- ENCRYPTION ----------------
 def encrypt():
     try:
         with open("Plaintext.txt", "r") as f:
@@ -27,7 +24,7 @@ def encrypt():
         print("File Error!")
         return
 
-    key = input("Enter Key (Word or Sentence): ")
+    key = input("Enter Key: ")
     key = process_key(key)
 
     key_len = len(key)
@@ -36,7 +33,6 @@ def encrypt():
 
     rows = math.ceil(text_len / key_len)
 
-    # Fill matrix with 'X'
     matrix = [['X' for _ in range(key_len)] for _ in range(rows)]
 
     k = 0
@@ -46,7 +42,6 @@ def encrypt():
                 matrix[i][j] = text[k]
                 k += 1
 
-    # Read column-wise based on order
     cipher = ""
     for num in range(key_len):
         for j in range(key_len):
@@ -60,7 +55,6 @@ def encrypt():
     print("Encryption Completed! Output stored in Cipher.txt")
 
 
-# ---------------- DECRYPTION ----------------
 def decrypt():
     try:
         with open("Cipher.txt", "r") as f:
@@ -69,7 +63,7 @@ def decrypt():
         print("File Error!")
         return
 
-    key = input("Enter Key (Word or Sentence): ")
+    key = input("Enter Key: ")
     key = process_key(key)
 
     key_len = len(key)
@@ -94,16 +88,14 @@ def decrypt():
             plain += matrix[i][j]
 
     with open("Recover.txt", "w") as f:
-        f.write(plain.rstrip('X'))  # remove padding
+        f.write(plain.rstrip('X')) 
 
     print("Decryption Completed! Output stored in Recover.txt")
 
 
-# ---------------- MAIN MENU ----------------
 while True:
-    print("\n===== Columnar Transposition Cipher =====")
     print("1. Encryption")
-    print("2. Decryption")
+    print("2.Decryption")
     print("3. Exit")
 
     choice = input("Enter choice: ")
@@ -119,15 +111,3 @@ while True:
         print("Invalid Choice!")
 
 
-
-
-
-
-
-
-
-Input: File - Large Plaintext (file.txt), Key Value (Word or Sentence)
-Output: File - Encoded Text (Cipher.txt)
-Input File Name: Plaintext.txt
-Encrypted File Name: Cipher.txt
-Decrypted File Name: Recover.txt

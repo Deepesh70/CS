@@ -1,6 +1,5 @@
 import string
 
-# -------- NORMALIZE (keep only A-Z, 0-9) --------
 def normalize(msg):
     result = []
     for ch in msg:
@@ -9,24 +8,20 @@ def normalize(msg):
     return "".join(result)
 
 
-# -------- BUILD 6x6 MATRIX --------
 def build_key_matrix(secret):
     secret = normalize(secret)
 
-    symbols = string.ascii_uppercase + string.digits  # 36 chars
+    symbols = string.ascii_uppercase + string.digits  
     used = ""
 
-    # Add key characters first
     for ch in secret:
         if ch not in used:
             used += ch
 
-    # Fill remaining characters
     for ch in symbols:
         if ch not in used:
             used += ch
 
-    # Create 6x6 matrix
     matrix = []
     pos = 0
 
@@ -40,8 +35,6 @@ def build_key_matrix(secret):
 
     return matrix
 
-
-# -------- FIND POSITION --------
 def locate(matrix, char):
     for r in range(6):
         for c in range(6):
@@ -49,7 +42,6 @@ def locate(matrix, char):
                 return r, c
 
 
-# -------- CREATE PAIRS --------
 def generate_digrams(text):
     pairs = []
     i = 0
@@ -74,7 +66,6 @@ def generate_digrams(text):
     return pairs
 
 
-# -------- ENCRYPT --------
 def encrypt(key):
     matrix = build_key_matrix(key)
 
@@ -107,14 +98,12 @@ def encrypt(key):
     print("Encryption done! Output saved in cipher.txt")
 
 
-# -------- DECRYPT --------
 def decrypt(key):
     matrix = build_key_matrix(key)
 
     with open("cipher.txt", "r") as f:
         data = normalize(f.read())
 
-    # NOTE: For decryption, we split directly into pairs (no X insertion)
     pairs = [data[i:i+2] for i in range(0, len(data), 2)]
 
     decrypted = ""
@@ -141,7 +130,6 @@ def decrypt(key):
     print("Decryption done! Output saved in recover.txt")
 
 
-# -------- MENU --------
 if __name__ == "__main__":
     key = input("Enter key: ")
 

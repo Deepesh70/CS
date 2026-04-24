@@ -2,7 +2,6 @@ import socket
 import random
 import time
 
-# Check prime
 def is_prime(n):
     if n <= 1:
         return False
@@ -18,7 +17,6 @@ def is_prime(n):
         i += 6
     return True
 
-# Generate random prime
 def generate_prime():
     while True:
         p = random.randint(10000, 99999)
@@ -39,37 +37,30 @@ def start_server():
         with conn:
             print(f"Connected by {addr}")
 
-            # Step 1: Receive request
             request = conn.recv(1024).decode()
             if request:
                 print("1. Request accepted from client")
 
-            # Step 2: Generate P and G
             P = generate_prime()
             G = random.randint(2, P - 2)
 
             print(f"2. Generated P: {P}, G: {G}")
 
-            # Step 3: Send P and G
             conn.sendall(f"{P}|{G}".encode())
             print("3. Sent P and G to client")
 
-            # Step 4: Receive R1 from client
             r1_data = conn.recv(1024).decode()
             R1 = int(r1_data)
             print(f"4. Received R1: {R1}")
 
-            # Step 5: Generate private Y and R2
             Y = random.randint(1, P - 1)
             R2 = pow(G, Y, P)
 
             print(f"5. Private Y: {Y}, Calculated R2: {R2}")
 
-            # Step 6: Send R2
             conn.sendall(str(R2).encode())
             print("6. Sent R2 to client")
 
-            # Step 7: Compute shared key
             secret_key = pow(R1, Y, P)
             print(f"7. Symmetric Key (Server): {secret_key}")
 

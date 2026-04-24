@@ -102,14 +102,3 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
-
-
-Input: File - Large Plaintext (file.txt), Key Value
-Output: File - Encoded Text (Cipher.txt)
-Input File Name: Plaintext.txt
-Encrypted File Name: Cipher.txt
-Decrypted File Name: Recover.txt
